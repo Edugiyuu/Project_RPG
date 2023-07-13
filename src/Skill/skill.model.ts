@@ -27,11 +27,9 @@ export const SkillModel = sequelize.define("skills", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  playerId: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
+
 });
+
+
 
 export default SkillModel;

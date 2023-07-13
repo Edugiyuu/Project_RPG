@@ -1,5 +1,6 @@
 import { sequelize, DataTypes } from "../database/db";
 import { SkillModel } from "../Skill/skill.model";
+import { PlayerSkillModel } from "../PlayerSkills/playerSkill.model";
 
 export const PlayerModel = sequelize.define("players", {
   playerId: {
@@ -30,13 +31,15 @@ export const PlayerModel = sequelize.define("players", {
   },
   
 });
-PlayerModel.hasMany(SkillModel, {
+/* PlayerModel.hasMany(SkillModel, {
   foreignKey: 'playerId',
   sourceKey: 'playerId'
   
 })
 SkillModel.belongsTo(PlayerModel, {
   foreignKey: 'playerId',
-});
+}); */
+
+
 
 export default PlayerModel;
