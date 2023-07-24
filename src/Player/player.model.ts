@@ -31,15 +31,23 @@ export const PlayerModel = sequelize.define("players", {
   },
   
 });
-/* PlayerModel.hasMany(SkillModel, {
+
+ PlayerModel.belongsToMany(SkillModel,{
+  through:{
+    model:PlayerSkillModel
+  },
   foreignKey: 'playerId',
-  sourceKey: 'playerId'
-  
+  constraints: true
 })
-SkillModel.belongsTo(PlayerModel, {
-  foreignKey: 'playerId',
-}); */
+
+SkillModel.belongsToMany(PlayerModel,{
+  through:{
+    model:PlayerSkillModel
+  },
+  foreignKey: 'skillId',
+  constraints: true
+}) 
 
 
 
-export default PlayerModel;
+//export default PlayerModel;

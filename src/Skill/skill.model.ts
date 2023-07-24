@@ -1,4 +1,5 @@
-import PlayerModel from "../Player/player.model";
+import {PlayerModel} from "../Player/player.model";
+import PlayerSkillModel from "../PlayerSkills/playerSkill.model";
 import { sequelize, DataTypes } from "../database/db";
 
 export const SkillModel = sequelize.define("skills", {
@@ -32,4 +33,4 @@ export const SkillModel = sequelize.define("skills", {
 
 
 
-export default SkillModel;
+// export default SkillModel;

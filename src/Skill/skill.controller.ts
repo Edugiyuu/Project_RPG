@@ -5,14 +5,14 @@ import {
   ParamsSkillInput,
   UpdateSkillInput,
 } from "./skill.schema";
-import SkillModel from "./skill.model";
+import {SkillModel} from "./skill.model";
 
 export const createSkillController = async (
   req: Request<{}, {}, CreateSkillInput>,
   res: Response
 ) => {
   try {
-    const { name, damage, heal, stun, stamina,playerId} = req.body;
+    const { name, damage, heal, stun, stamina} = req.body;
 
     const skill = await SkillModel.create({
       name,
@@ -20,7 +20,6 @@ export const createSkillController = async (
       heal,
       stun,
       stamina,
-      playerId
     });
 
     res.status(201).json({

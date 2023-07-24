@@ -30,15 +30,6 @@ import {
 } from "./Skill/skill.controller";
 import { createSkillSchema, updateSkillSchema } from "./Skill/skill.schema";
 //--------------------------------
-import {
-  createPlayerSkillController,
-  deletePlayerSkillController,
-  findAllPlayerSkillsController,
-  findPlayerSkillController,
-  updatePlayerSkillController
-  
-} from "./PlayerSkills/playerSkill.controller";
-import { createPlayerSkillSchema, updatePlayerSkillSchema } from "./PlayerSkills/playerSkill.schema";
 
 
 const router = express.Router();
@@ -74,14 +65,6 @@ router
   .delete(deleteSkillController);
 
   //-----------------------PlayerSkills------------------------------
-router
-.route("/playerSkill")
-.get(findAllPlayerSkillsController)
-.post(validate(createPlayerSkillSchema),createPlayerSkillController)
-router
-.route("/playerSkill/:id")
-.get(findPlayerSkillController)
-.patch(validate(updatePlayerSkillSchema), updatePlayerSkillController)
-.delete(deletePlayerSkillController);
+
 
 export default router;

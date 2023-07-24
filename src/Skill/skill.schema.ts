@@ -17,9 +17,6 @@ export const createSkillSchema = z.object({
     stamina: z.number({
       required_error: "stamina is required",
     }),
-    playerId: z.string({
-      required_error: "stamina is required"
-    }),
   }),
 });
 
@@ -36,7 +33,6 @@ export const updateSkillSchema = z.object({
       heal: z.number(),
       stun: z.boolean(),
       stamina: z.number(),
-      playerId: z.string()
     })
     
 });

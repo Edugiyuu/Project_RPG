@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import PlayerModel from "./player.model";
+import {PlayerModel} from "./player.model";
 import {
   CreatePlayerInput,
   FilterPlayerQueryInput,
   ParamsPlayerInput,
   UpdatePlayerInput,
 } from "./player.schema";
+import {SkillModel} from "../Skill/skill.model";
 
 export const createPlayerController = async (
   req: Request<{}, {}, CreatePlayerInput>,
@@ -13,20 +14,20 @@ export const createPlayerController = async (
 ) => {
   try {
     const { name, hp, attack, stamina, level} = req.body;
-
-    const note = await PlayerModel.create({
+    const skill = await SkillModel.findByPk("bf2417d0-7136-4a32-b84f-ce211d475917")
+    const player = await PlayerModel.create({
       name,
       hp,
       attack,
       stamina,
       level,
     });
-
+    //player.addSkillModel([skill])
     res.status(201).json({
       status: "success",
       data: {
-        note,
-      },
+        player,
+      }
     });
   } catch (error: any) {
     if (error.name === "SequelizeUniqueConstraintError") {
@@ -85,9 +86,9 @@ export const findPlayerController = async (
   res: Response
 ) => {
   try {
-    const note = await PlayerModel.findByPk(req.params.playerId);
+    const player = await PlayerModel.findByPk(req.params.playerId);
 
-    if (!note) {
+    if (!player) {
       return res.status(404).json({
         status: "fail",
         message: "Note with that ID not found",
@@ -97,7 +98,7 @@ export const findPlayerController = async (
     res.status(200).json({
       status: "success",
       data: {
-        note,
+        player,
       },
     });
   } catch (error: any) {
@@ -157,3 +158,5 @@ export const deletePlayerController = async (
     });
   }
 };
+
+
