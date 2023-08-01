@@ -1,16 +1,11 @@
-import {PlayerModel} from "../Player/player.model";
-import {SkillModel} from "../Skill/skill.model";
+import Player from "../Player/player.model";
+import Skill from "../Skill/skill.model";
 import { sequelize, DataTypes } from "../database/db";
 
-export const PlayerSkillModel = sequelize.define("playerSkills", {
-  playerSkillId: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
+const Player_Skills = sequelize.define(
+  "player_skills",
+  {},
+  { timestamps: false }
+);
 
-});
-
-
-
-export default PlayerSkillModel;
+export default Player_Skills;

@@ -1,13 +1,8 @@
 import { sequelize, DataTypes } from "../database/db";
-import { SkillModel } from "../Skill/skill.model";
-import { PlayerSkillModel } from "../PlayerSkills/playerSkill.model";
+import Skill from "../Skill/skill.model";
+import Player_Skills from "../PlayerSkills/playerSkill.model";
 
-export const PlayerModel = sequelize.define("players", {
-  playerId: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
+const Player = sequelize.define("players", {
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -29,25 +24,14 @@ export const PlayerModel = sequelize.define("players", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  
 });
 
- PlayerModel.belongsToMany(SkillModel,{
-  through:{
-    model:PlayerSkillModel
-  },
-  foreignKey: 'playerId',
-  constraints: true
-})
+Player.belongsToMany(Skill, {
+  through: Player_Skills,
+});
 
-SkillModel.belongsToMany(PlayerModel,{
-  through:{
-    model:PlayerSkillModel
-  },
-  foreignKey: 'skillId',
-  constraints: true
-}) 
+Skill.belongsToMany(Player, {
+  through: Player_Skills,
+});
 
-
-
-//export default PlayerModel;
+export default Player;

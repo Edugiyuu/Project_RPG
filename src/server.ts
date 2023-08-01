@@ -26,7 +26,6 @@ app.get("/api", (req: Request, res: Response) => {
 
 app.use("/", router);
 
-
 app.all("*", (req: Request, res: Response) => {
   res.status(404).json({
     status: "fail",

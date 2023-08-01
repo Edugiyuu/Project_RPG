@@ -1,13 +1,6 @@
-import {PlayerModel} from "../Player/player.model";
-import PlayerSkillModel from "../PlayerSkills/playerSkill.model";
 import { sequelize, DataTypes } from "../database/db";
 
-export const SkillModel = sequelize.define("skills", {
-  skillId: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
+const Skill = sequelize.define("skills", {
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -18,7 +11,7 @@ export const SkillModel = sequelize.define("skills", {
   },
   heal: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
   },
   stun: {
     type: DataTypes.BOOLEAN,
@@ -28,9 +21,10 @@ export const SkillModel = sequelize.define("skills", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-
+  
 });
-
-
-
-// export default SkillModel;
+/* damage,
+      heal,
+      stun,
+      stamina, */
+export default Skill;

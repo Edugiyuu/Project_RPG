@@ -1,33 +1,48 @@
 import { Request, Response } from "express";
-import {PlayerModel} from "./player.model";
+import Player from "./player.model";
 import {
   CreatePlayerInput,
   FilterPlayerQueryInput,
   ParamsPlayerInput,
   UpdatePlayerInput,
 } from "./player.schema";
-import {SkillModel} from "../Skill/skill.model";
+import Skill from "../Skill/skill.model";
 
 export const createPlayerController = async (
   req: Request<{}, {}, CreatePlayerInput>,
   res: Response
 ) => {
   try {
-    const { name, hp, attack, stamina, level} = req.body;
-    const skill = await SkillModel.findByPk("bf2417d0-7136-4a32-b84f-ce211d475917")
-    const player = await PlayerModel.create({
+    const user = { name: "text", age: 10, skills: { attack: 10, mana: 5 } };
+    const { mana } = user.skills;
+
+    const { name, hp, attack, stamina, level, skillIds } = req.body;
+    const fulano = await Player.create({
       name,
       hp,
       attack,
       stamina,
       level,
     });
-    //player.addSkillModel([skill])
+
+    const habilidades = [];
+
+    for (let i = 0; i < skillIds.length; i++) {
+      const skillId = skillIds[i];
+
+      const habilidade = await Skill.findByPk(skillId);
+
+      if (habilidade) {
+        habilidades.push(habilidade);
+      }
+    }
+    await fulano.addSkills(habilidades);
+
     res.status(201).json({
       status: "success",
       data: {
-        player,
-      }
+        fulano,
+      },
     });
   } catch (error: any) {
     if (error.name === "SequelizeUniqueConstraintError") {
@@ -49,7 +64,7 @@ export const updatePlayerController = async (
   res: Response
 ) => {
   try {
-    const result = await PlayerModel.update(
+    const result = await Player.update(
       { ...req.body, updatedAt: Date.now() },
       {
         where: {
@@ -65,7 +80,7 @@ export const updatePlayerController = async (
       });
     }
 
-    const note = await PlayerModel.findByPk(req.params.playerId);
+    const note = await Player.findByPk(req.params.playerId);
 
     res.status(200).json({
       status: "success",
@@ -86,8 +101,9 @@ export const findPlayerController = async (
   res: Response
 ) => {
   try {
-    const player = await PlayerModel.findByPk(req.params.playerId);
-
+    const player = await Player.findByPk(req.params.playerId, {include: Skill});
+    console.log(player);
+    
     if (!player) {
       return res.status(404).json({
         status: "fail",
@@ -118,7 +134,12 @@ export const findAllPlayersController = async (
     const limit = req.query.limit || 10;
     const skip = (page - 1) * limit;
 
-    const players = await PlayerModel.findAll({ limit, offset: skip });
+    const players = await Player.findAll({
+      limit,
+      offset: skip,
+      include: Skill,
+    });
+    console.log("🚀 ~ file: player.controller.ts:130 ~ players:", players);
 
     res.status(200).json({
       status: "success",
@@ -138,7 +159,7 @@ export const deletePlayerController = async (
   res: Response
 ) => {
   try {
-    const result = await PlayerModel.destroy({
+    const result = await Player.destroy({
       where: { id: req.params.playerId },
       force: true,
     });
@@ -158,5 +179,3 @@ export const deletePlayerController = async (
     });
   }
 };
-
-

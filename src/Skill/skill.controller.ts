@@ -5,16 +5,16 @@ import {
   ParamsSkillInput,
   UpdateSkillInput,
 } from "./skill.schema";
-import {SkillModel} from "./skill.model";
+import Skill from "./skill.model";
 
 export const createSkillController = async (
   req: Request<{}, {}, CreateSkillInput>,
   res: Response
 ) => {
   try {
-    const { name, damage, heal, stun, stamina} = req.body;
+    const { name, damage, heal, stun, stamina } = req.body;
 
-    const skill = await SkillModel.create({
+    const skill = await Skill.create({
       name,
       damage,
       heal,
@@ -48,7 +48,7 @@ export const updateSkillController = async (
   res: Response
 ) => {
   try {
-    const result = await SkillModel.update(
+    const result = await Skill.update(
       { ...req.body, updatedAt: Date.now() },
       {
         where: {
@@ -64,7 +64,7 @@ export const updateSkillController = async (
       });
     }
 
-    const skill = await SkillModel.findByPk(req.params.skillId);
+    const skill = await Skill.findByPk(req.params.skillId);
 
     res.status(200).json({
       status: "success",
@@ -85,7 +85,7 @@ export const findSkillController = async (
   res: Response
 ) => {
   try {
-    const skill = await SkillModel.findByPk(req.params.skillId);
+    const skill = await Skill.findByPk(req.params.skillId);
 
     if (!skill) {
       return res.status(404).json({
@@ -117,7 +117,7 @@ export const findAllSkillsController = async (
     const limit = req.query.limit || 10;
     const skip = (page - 1) * limit;
 
-    const skills = await SkillModel.findAll({ limit, offset: skip });
+    const skills = await Skill.findAll({ limit, offset: skip });
 
     res.status(200).json({
       status: "success",
@@ -137,7 +137,7 @@ export const deleteSkillController = async (
   res: Response
 ) => {
   try {
-    const result = await SkillModel.destroy({
+    const result = await Skill.destroy({
       where: { id: req.params.skillId },
       force: true,
     });

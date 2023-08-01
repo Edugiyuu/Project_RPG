@@ -17,6 +17,7 @@ export const createPlayerSchema = z.object({
     level: z.number({
       required_error: "Level is required",
     }),
+    skillIds: z.number().array()
   }),
 });
 
