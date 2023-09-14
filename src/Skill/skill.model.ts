@@ -21,6 +21,10 @@ const Skill = sequelize.define("skills", {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+  mobSkill: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  }
   
 });
 /* damage,

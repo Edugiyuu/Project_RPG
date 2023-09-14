@@ -13,19 +13,15 @@ export const createPlayerController = async (
   res: Response
 ) => {
   try {
-    const user = { name: "text", age: 10, skills: { attack: 10, mana: 5 } };
-    const { mana } = user.skills;
 
-    const { name, hp, attack, stamina, level, skillIds } = req.body;
+    const { name, skillIds } = req.body;
     const fulano = await Player.create({
       name,
-      hp,
-      attack,
-      stamina,
-      level,
     });
 
-    const habilidades = [];
+    const skill1 = await Skill.create({ name: "Cuspe ácido", damage: 10, heal:5, stun:false, stamina:0, mobSkill: true});
+
+    const habilidades = [skill1];
 
     for (let i = 0; i < skillIds.length; i++) {
       const skillId = skillIds[i];

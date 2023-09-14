@@ -5,18 +5,6 @@ export const createPlayerSchema = z.object({
     name: z.string({
       required_error: "Name is required",
     }),
-    hp: z.number({
-      required_error: "Hp is required",
-    }),
-    attack: z.number({
-      required_error: "Attack is required",
-    }),
-    stamina: z.number({
-      required_error: "Stamina is required",
-    }),
-    level: z.number({
-      required_error: "Level is required",
-    }),
     skillIds: z.number().array()
   }),
 });

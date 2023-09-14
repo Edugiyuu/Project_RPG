@@ -11,18 +11,22 @@ const Player = sequelize.define("players", {
   hp: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 100,
   },
   attack: {
     type: DataTypes.INTEGER,
     allowNull: true,
+    defaultValue: 10,
   },
   stamina: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 5,
   },
   level: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 1,
   },
 });
 

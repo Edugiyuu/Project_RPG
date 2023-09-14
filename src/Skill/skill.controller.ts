@@ -12,7 +12,7 @@ export const createSkillController = async (
   res: Response
 ) => {
   try {
-    const { name, damage, heal, stun, stamina } = req.body;
+    const { name, damage, heal, stun, stamina, mobSkill } = req.body;
 
     const skill = await Skill.create({
       name,
@@ -20,6 +20,7 @@ export const createSkillController = async (
       heal,
       stun,
       stamina,
+      mobSkill
     });
 
     res.status(201).json({
