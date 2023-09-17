@@ -6,6 +6,7 @@ import {
   ParamsMobInput,
   UpdateMobInput,
 } from "./mob.schema";
+import Skill from "../Skill/skill.model";
 
 export const createMobController = async (
   req: Request<{}, {}, CreateMobInput>,
@@ -18,7 +19,6 @@ export const createMobController = async (
       name,
       hp,
       attack,
-      
     });
 
     res.status(201).json({

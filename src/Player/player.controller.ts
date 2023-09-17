@@ -7,6 +7,7 @@ import {
   UpdatePlayerInput,
 } from "./player.schema";
 import Skill from "../Skill/skill.model";
+import { where } from "sequelize";
 
 export const createPlayerController = async (
   req: Request<{}, {}, CreatePlayerInput>,
@@ -17,11 +18,17 @@ export const createPlayerController = async (
     const { name, skillIds } = req.body;
     const fulano = await Player.create({
       name,
+      skillIds
     });
+    let skill1 = await Skill.findOne({ where: { name: "Ataque Normal" } });
+    //const skill1 = await Skill.create({ name: "Ataque Normal", damage: 10, heal:0, stun:false, stamina:0, mobSkill: true});
 
-    const skill1 = await Skill.create({ name: "Cuspe ácido", damage: 10, heal:5, stun:false, stamina:0, mobSkill: true});
+    if (!skill1) {
+      skill1 = await Skill.create({ name: "Ataque Normal", damage: 10, heal:0, stun:false, stamina:0, mobSkill: false});
+    }
 
-    const habilidades = [skill1];
+
+    const habilidades = [];
 
     for (let i = 0; i < skillIds.length; i++) {
       const skillId = skillIds[i];
