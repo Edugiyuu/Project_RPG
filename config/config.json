@@ -1,0 +1,27 @@
+{
+  "development": {
+    "username": "admin",
+    "password": "password123",
+    "database": "node_sequelize",
+    "host": "127.0.0.1",
+    "port": 6500,
+    "dialect": "postgres",
+    "migrationStorage": "json",
+    "seederStoragePath": "sequelizeData.json",
+    "seederStorageTableName": "sequelize_data"
+  },
+  "test": {
+    "username": "seu_usuario",
+    "password": "sua_senha",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres" 
+  },
+  "production": {
+    "username": "seu_usuario",
+    "password": "sua_senha",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres" 
+  }
+}

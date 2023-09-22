@@ -28,6 +28,7 @@ const Player = sequelize.define("players", {
     allowNull: false,
     defaultValue: 1,
   },
+  
 });
 
 Player.belongsToMany(Skill, {

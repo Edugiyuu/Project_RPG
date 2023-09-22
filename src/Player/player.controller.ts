@@ -20,14 +20,7 @@ export const createPlayerController = async (
       name,
       skillIds
     });
-    let skill1 = await Skill.findOne({ where: { name: "Ataque Normal" } });
-    //const skill1 = await Skill.create({ name: "Ataque Normal", damage: 10, heal:0, stun:false, stamina:0, mobSkill: true});
-
-    if (!skill1) {
-      skill1 = await Skill.create({ name: "Ataque Normal", damage: 10, heal:0, stun:false, stamina:0, mobSkill: false});
-    }
-
-
+   
     const habilidades = [];
 
     for (let i = 0; i < skillIds.length; i++) {
