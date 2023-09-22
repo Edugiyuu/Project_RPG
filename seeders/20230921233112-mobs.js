@@ -5,12 +5,14 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('mobs', [{
       id: 1,
-      name:"",
+      name:"Bixo teste",
+      hp: 50,
+      attack: 5,
       createdAt: new Date(),
       updatedAt: new Date()
     }]);
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('players', null, {});
+    return queryInterface.bulkDelete('mobs', null, {});
   }
 };

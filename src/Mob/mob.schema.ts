@@ -11,6 +11,7 @@ export const createMobSchema = z.object({
     attack: z.number({
       required_error: "Content is required",
     }),
+    skillIds: z.number().array()
   }),
 });
 

@@ -13,13 +13,27 @@ export const createMobController = async (
   res: Response
 ) => {
   try {
-    const { name, hp, attack, } = req.body;
+    const { name, hp, attack, skillIds} = req.body;
 
     const mob = await MobModel.create({
       name,
       hp,
       attack,
+      skillIds
     });
+
+    const habilidades = [];
+
+    for (let i = 0; i < skillIds.length; i++) {
+      const skillId = skillIds[i];
+
+      const habilidade = await Skill.findByPk(skillId);
+
+      if (habilidade) {
+        habilidades.push(habilidade);
+      }
+    }
+    await mob.addSkills(habilidades);
 
     res.status(201).json({
       status: "success",
@@ -84,7 +98,7 @@ export const findMobController = async (
   res: Response
 ) => {
   try {
-    const mob = await MobModel.findByPk(req.params.mobId);
+    const mob = await MobModel.findByPk(req.params.mobId, {include: Skill});
 
     if (!mob) {
       return res.status(404).json({
@@ -116,7 +130,7 @@ export const findAllMobsController = async (
     const limit = req.query.limit || 10;
     const skip = (page - 1) * limit;
 
-    const mobs = await MobModel.findAll({ limit, offset: skip });
+    const mobs = await MobModel.findAll({ limit, offset: skip, include: Skill,});
 
     res.status(200).json({
       status: "success",

@@ -1,11 +1,8 @@
 import { sequelize, DataTypes } from "../database/db";
+import Skill from "../Skill/skill.model";
+import Mob_Skills from "../MobSkills/mobSkill.model";
 
 const MobModel = sequelize.define("mobs", {
-  mobId: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -23,4 +20,11 @@ const MobModel = sequelize.define("mobs", {
  
 });
 
+MobModel.belongsToMany(Skill, {
+  through: Mob_Skills,
+});
+
+Skill.belongsToMany(MobModel, {
+  through: Mob_Skills,
+});
 export default MobModel;
