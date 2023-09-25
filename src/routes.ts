@@ -29,6 +29,16 @@ import {
   
 } from "./Skill/skill.controller";
 import { createSkillSchema, updateSkillSchema } from "./Skill/skill.schema";
+
+import {
+  createTraitController,
+  deleteTraitController,
+  findAllTraitsController,
+  findTraitController,
+  updateTraitController
+  
+} from "./Trait/trait.controller";
+import { createTraitSchema, updateTraitSchema } from "./Trait/trait.schema";
 //--------------------------------
 
 
@@ -64,7 +74,16 @@ router
   .patch(validate(updateSkillSchema), updateSkillController)
   .delete(deleteSkillController);
 
-  //-----------------------PlayerSkills------------------------------
+  //-----------------------Traits------------------------------
 
+  router
+  .route("/trait")
+  .get(findAllTraitsController)
+  .post(validate(createTraitSchema),createTraitController)
+  router
+  .route("/trait/:traitId")
+  .get(findTraitController)
+  .patch(validate(updateTraitSchema), updateTraitController)
+  .delete(deleteTraitController);
 
 export default router;

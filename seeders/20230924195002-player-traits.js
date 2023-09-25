@@ -3,19 +3,15 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('mob_skills', [
+    return queryInterface.bulkInsert('player_traits', [
       {
-      mobId: 1,
-      skillId: 3,
-    },
-    {
-      mobId: 2,
-      skillId: 4,
+      playerId: 1,
+      traitId: 1,
     },
 
   ]);
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete('mob_skills', null, {});
+    return queryInterface.bulkDelete('player_traits', null, {});
   }
 };

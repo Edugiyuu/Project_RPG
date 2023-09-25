@@ -1,44 +1,41 @@
 import { Request, Response } from "express";
-import Player from "./player.model";
 import {
-  CreatePlayerInput,
-  FilterPlayerQueryInput,
-  ParamsPlayerInput,
-  UpdatePlayerInput,
-} from "./player.schema";
-import Skill from "../Skill/skill.model";
-import { where } from "sequelize";
-import Trait from "../Trait/trait.model";
+  CreateTraitInput,
+  FilterTraitQueryInput,
+  ParamsTraitInput,
+  UpdateTraitInput,
+} from "./trait.schema";
+import Trait from "./trait.model";
 
-export const createPlayerController = async (
-  req: Request<{}, {}, CreatePlayerInput>,
+export const createTraitController = async (
+  req: Request<{}, {}, CreateTraitInput>,
   res: Response
 ) => {
   try {
+    const {name,
+      description,
+      type,
+      damageBonus,
+      hpBonus,
+      dodge,
+      staminaBonus,
+      revive } = req.body;
 
-    const { name, skillIds } = req.body;
-    const fulano = await Player.create({
+    const trait = await Trait.create({
       name,
-      skillIds
+      description,
+      type,
+      damageBonus,
+      hpBonus,
+      dodge,
+      staminaBonus,
+      revive
     });
-   
-    const habilidades = [];
-
-    for (let i = 0; i < skillIds.length; i++) {
-      const skillId = skillIds[i];
-
-      const habilidade = await Skill.findByPk(skillId);
-
-      if (habilidade) {
-        habilidades.push(habilidade);
-      }
-    }
-    await fulano.addSkills(habilidades);
 
     res.status(201).json({
       status: "success",
       data: {
-        fulano,
+        trait,
       },
     });
   } catch (error: any) {
@@ -56,16 +53,16 @@ export const createPlayerController = async (
   }
 };
 
-export const updatePlayerController = async (
-  req: Request<UpdatePlayerInput["params"], {}, UpdatePlayerInput["body"]>,
+export const updateTraitController = async (
+  req: Request<UpdateTraitInput["params"], {}, UpdateTraitInput["body"]>,
   res: Response
 ) => {
   try {
-    const result = await Player.update(
+    const result = await Trait.update(
       { ...req.body, updatedAt: Date.now() },
       {
         where: {
-          id: req.params.playerId,
+          id: req.params.traitId,
         },
       }
     );
@@ -77,12 +74,12 @@ export const updatePlayerController = async (
       });
     }
 
-    const note = await Player.findByPk(req.params.playerId);
+    const trait = await Trait.findByPk(req.params.traitId);
 
     res.status(200).json({
       status: "success",
       data: {
-        note,
+        trait,
       },
     });
   } catch (error: any) {
@@ -93,34 +90,26 @@ export const updatePlayerController = async (
   }
 };
 
-export const findPlayerController = async (
-  req: Request<ParamsPlayerInput>,
+export const findTraitController = async (
+  req: Request<ParamsTraitInput>,
   res: Response
 ) => {
   try {
-    const player = await Player.findByPk(req.params.playerId, {
-      include: [
-        { model: Skill },
-        { model: Trait },
-      ]
-    });
-    
-    console.log(player);
-    
-    if (!player) {
+    const trait = await Trait.findByPk(req.params.traitId);
+
+    if (!trait) {
       return res.status(404).json({
         status: "fail",
-        message: "Player with that ID not found",
+        message: "Note with that ID not found",
       });
     }
-    
+
     res.status(200).json({
       status: "success",
       data: {
-        player,
+        trait,
       },
     });
-    
   } catch (error: any) {
     res.status(500).json({
       status: "error",
@@ -129,8 +118,8 @@ export const findPlayerController = async (
   }
 };
 
-export const findAllPlayersController = async (
-  req: Request<{}, {}, {}, FilterPlayerQueryInput>,
+export const findAllTraitsController = async (
+  req: Request<{}, {}, {}, FilterTraitQueryInput>,
   res: Response
 ) => {
   try {
@@ -138,20 +127,12 @@ export const findAllPlayersController = async (
     const limit = req.query.limit || 10;
     const skip = (page - 1) * limit;
 
-    const players = await Player.findAll({
-      limit,
-      offset: skip,
-      include: [
-        { model: Skill },
-        { model: Trait },
-      ]
-    });
-    console.log("🚀 ~ file: player.controller.ts:130 ~ players:", players);
+    const traits = await Trait.findAll({ limit, offset: skip });
 
     res.status(200).json({
       status: "success",
-      results: players.length,
-      players,
+      results: traits.length,
+      traits,
     });
   } catch (error: any) {
     res.status(500).json({
@@ -161,13 +142,13 @@ export const findAllPlayersController = async (
   }
 };
 
-export const deletePlayerController = async (
-  req: Request<ParamsPlayerInput>,
+export const deleteTraitController = async (
+  req: Request<ParamsTraitInput>,
   res: Response
 ) => {
   try {
-    const result = await Player.destroy({
-      where: { id: req.params.playerId },
+    const result = await Trait.destroy({
+      where: { id: req.params.traitId },
       force: true,
     });
 

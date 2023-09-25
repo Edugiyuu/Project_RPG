@@ -10,8 +10,20 @@ module.exports = {
       attack: 5,
       createdAt: new Date(),
       updatedAt: new Date()
-    }]);
-  },
+    },
+    {
+      id: 2,
+      name:"Hidra de Ferro",
+      hp: 400,
+      attack: 40,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }
+
+
+  ]);
+},
+
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('mobs', null, {});
   }

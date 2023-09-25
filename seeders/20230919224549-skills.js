@@ -37,6 +37,17 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
     },
+    {
+      id: 4,
+      name:"Regeneração",
+      damage: 0,
+      heal: 1,
+      stun: false,
+      stamina: 0,
+      mobSkill:true,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
   ]);
     
   },

@@ -6,6 +6,7 @@ export const createPlayerSchema = z.object({
       required_error: "Name is required",
     }),
     skillIds: z.number().array()
+    
   }),
 });
 
