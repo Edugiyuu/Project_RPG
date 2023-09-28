@@ -30,25 +30,16 @@ export const updateTraitSchema = z.object({
   params,
   body: z
     .object({
-      name: z.string({
-        required_error: "Name is required",
-      }),
+      name: z.string(),
       description: z.string(),
-  
-      type: z.string({
-        required_error: "type is required",
-      }),
+      type: z.string(),
       damageBonus: z.number(),
-  
       hpBonus: z.number(),
-  
       dodge: z.boolean(),
-  
       staminaBonus: z.number(),
-  
       revive: z.boolean(),
     })
-    
+    .partial(),
 });
 
 export const filterQuery = z.object({

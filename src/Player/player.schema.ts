@@ -5,7 +5,8 @@ export const createPlayerSchema = z.object({
     name: z.string({
       required_error: "Name is required",
     }),
-    skillIds: z.number().array()
+    
+
     
   }),
 });
@@ -24,7 +25,7 @@ export const updatePlayerSchema = z.object({
       stamina: z.number(),
       level: z.number(), 
     })
-  
+    .partial(),
 });
 
 export const filterQuery = z.object({

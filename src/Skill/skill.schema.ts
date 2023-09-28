@@ -38,7 +38,7 @@ export const updateSkillSchema = z.object({
       stamina: z.number(),
       mobSkill: z.boolean(),
     })
-    
+    .partial(),
 });
 
 export const filterQuery = z.object({

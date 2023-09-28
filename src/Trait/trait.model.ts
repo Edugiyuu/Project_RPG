@@ -31,7 +31,7 @@ const Trait = sequelize.define("traits", {
   revive: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
-  },
+  }
   
 });
 /* damage,

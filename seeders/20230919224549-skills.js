@@ -41,7 +41,7 @@ module.exports = {
       id: 4,
       name:"Regeneração",
       damage: 0,
-      heal: 1,
+      heal: 10,
       stun: false,
       stamina: 0,
       mobSkill:true,

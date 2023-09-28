@@ -16,12 +16,13 @@ export const createPlayerController = async (
 ) => {
   try {
 
-    const { name, skillIds } = req.body;
+    const { name,} = req.body;
     const fulano = await Player.create({
       name,
-      skillIds
     });
-   
+
+    const skillIds = [1,2]
+
     const habilidades = [];
 
     for (let i = 0; i < skillIds.length; i++) {
@@ -34,6 +35,23 @@ export const createPlayerController = async (
       }
     }
     await fulano.addSkills(habilidades);
+
+   
+
+
+   /*  const traits = [];
+
+    for (let i = 0; i < traitIds.length; i++) {
+
+      const traitId = traitIds[i];
+
+      const trait = await Trait.findByPk(traitId);
+
+      if (trait) {
+        traits.push(trait);
+      }
+    }
+    await fulano.addTraits(traits); */
 
     res.status(201).json({
       status: "success",
