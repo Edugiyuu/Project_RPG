@@ -4,10 +4,10 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('player_traits', [
-      {
+       {
       playerId: 1,
       traitId: 1,
-    },
+    }, 
 
   ]);
   },

@@ -31,6 +31,11 @@ const Player = sequelize.define("players", {
     allowNull: false,
     defaultValue: 1,
   },
+  mobsKilled: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0,
+  },
   
 });
 

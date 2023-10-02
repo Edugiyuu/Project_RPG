@@ -23,7 +23,8 @@ export const updatePlayerSchema = z.object({
       hp: z.number(),
       attack: z.number(),
       stamina: z.number(),
-      level: z.number(), 
+      level: z.number(),
+      mobsKilled: z.number()
     })
     .partial(),
 });

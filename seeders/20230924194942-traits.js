@@ -4,7 +4,7 @@ module.exports = {
     return queryInterface.bulkInsert('traits', [{
       id: 1,
       name: "Corpo de pedra",
-  	  type: "comum",
+  	  type: "Comum",
 	    description: "Seu corpo é resistente igual uma rocha",
 	    hpBonus: 20,
 	    damageBonus: 0,
@@ -16,6 +16,19 @@ module.exports = {
     },
     {
       id: 2,
+      name: "dededede",
+  	  type: "Comum",
+	    description: "Seu corpo é resistente igual uma rocha",
+	    hpBonus: 20,
+	    damageBonus: 0,
+	    dodge: false,
+	    staminaBonus: 0,
+	    revive: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      id: 3,
       name: "Determinado",
   	  type: "Rara",
 	    description: "Você ainda determinado a aguentar um pouco mais..",
@@ -28,7 +41,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      id: 3,
+      id: 4,
       name: "Incansável",
   	  type: "Rara",
 	    description: "Possui muito folego",
@@ -41,7 +54,7 @@ module.exports = {
       updatedAt: new Date()
     },
     {
-      id: 4,
+      id: 5,
       name: "Talento Natural",
   	  type: "Rara",
 	    description: "Você leva jeito pra isso..",
@@ -49,6 +62,19 @@ module.exports = {
 	    damageBonus: 8,
 	    dodge: false,
 	    staminaBonus: 3,
+	    revive: false,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    },
+    {
+      id: 6,
+      name: "Desesperado",
+  	  type: "Comum",
+	    description: "Seu corpo é resistente igual uma rocha",
+	    hpBonus: 20,
+	    damageBonus: 0,
+	    dodge: false,
+	    staminaBonus: 0,
 	    revive: false,
       createdAt: new Date(),
       updatedAt: new Date()

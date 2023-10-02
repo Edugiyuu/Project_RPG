@@ -36,22 +36,15 @@ export const createPlayerController = async (
     }
     await fulano.addSkills(habilidades);
 
-   
+    
+    const comumTraits = await Trait.findAll({ where: { type: "Comum" } });
+    const traits = [];
 
+    const randomId = Math.floor(Math.random() * comumTraits.length);
+    const randomTrait = comumTraits[randomId];
+    traits.push(randomTrait);
 
-   /*  const traits = [];
-
-    for (let i = 0; i < traitIds.length; i++) {
-
-      const traitId = traitIds[i];
-
-      const trait = await Trait.findByPk(traitId);
-
-      if (trait) {
-        traits.push(trait);
-      }
-    }
-    await fulano.addTraits(traits); */
+    await fulano.addTraits(traits);
 
     res.status(201).json({
       status: "success",
@@ -79,6 +72,20 @@ export const updatePlayerController = async (
   res: Response
 ) => {
   try {
+    const mobsKilled = req.body.mobsKilled
+    let playerLevel = req.body.level
+    const playerKills = await Player.findOne({ where: { mobsKilled: mobsKilled } });
+
+    const levelLimit = 50
+
+    for (let i = 0; i < levelLimit; i++) {
+      if (mobsKilled == i) {
+        playerLevel += 1
+      }
+      
+      break;
+    }
+
     const result = await Player.update(
       { ...req.body, updatedAt: Date.now() },
       {
