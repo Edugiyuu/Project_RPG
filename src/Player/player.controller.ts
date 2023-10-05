@@ -72,19 +72,20 @@ export const updatePlayerController = async (
   res: Response
 ) => {
   try {
-    const mobsKilled = req.body.mobsKilled
-    let playerLevel = req.body.level
-    const playerKills = await Player.findOne({ where: { mobsKilled: mobsKilled } });
 
-    const levelLimit = 50
 
-    for (let i = 0; i < levelLimit; i++) {
-      if (mobsKilled == i) {
-        playerLevel += 1
-      }
-      
-      break;
+    const updatedPlayer = await Player.findByPk(req.params.playerId);
+
+    if (req.body.mobsKilled) {
+      updatedPlayer.level += 1;
+      updatedPlayer.hp += 10;
+      updatedPlayer.stamina += 1;
+      updatedPlayer.attack += 1;
+
+      await updatedPlayer.save();
     }
+    
+
 
     const result = await Player.update(
       { ...req.body, updatedAt: Date.now() },
