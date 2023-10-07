@@ -1,6 +1,34 @@
 import { sequelize, DataTypes } from "../database/db";
+import { Table, Column, Model, HasMany, AllowNull, Unique, Default, DataType, BelongsToMany} from 'sequelize-typescript';
 
-const Trait = sequelize.define("traits", {
+@Table
+class Trait extends Model {
+  @Column
+  name: string;
+
+  @Column
+  description: string;
+
+  @Column
+  type: string;
+
+  @Column
+  damageBonus: number;
+
+  @Column
+  hpBonus: number;
+
+  @Column
+  dodge: boolean;
+
+  @Column
+  staminaBonus: number;
+
+  @Column
+  revive: boolean;
+}
+
+/* const Trait = sequelize.define("traits", {
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -33,7 +61,7 @@ const Trait = sequelize.define("traits", {
     defaultValue: false,
   }
   
-});
+}) */;
 /* damage,
       heal,
       stun,

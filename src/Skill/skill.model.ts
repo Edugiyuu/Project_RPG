@@ -1,6 +1,29 @@
 import { sequelize, DataTypes } from "../database/db";
+import { Table, Column, Model, HasMany, AllowNull, Unique, Default, DataType, BelongsToMany} from 'sequelize-typescript';
 
-const Skill = sequelize.define("skills", {
+
+@Table
+class Skill extends Model {
+  @Column
+  name: string;
+
+  @Column
+  damage: number;
+
+  @Column
+  heal: number;
+
+  @Column
+  stun: boolean;
+
+  @Column
+  stamina: number;
+
+  @Column
+  mobSkill: boolean;
+}
+
+/* const Skill = sequelize.define("skills", {
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -26,7 +49,7 @@ const Skill = sequelize.define("skills", {
     allowNull: false,
   }
   
-});
+}) */;
 /* damage,
       heal,
       stun,

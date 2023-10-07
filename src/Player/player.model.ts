@@ -3,47 +3,50 @@ import Skill from "../Skill/skill.model";
 import Player_Skills from "../PlayerSkills/playerSkill.model";
 import Trait from "../Trait/trait.model";
 import Player_Traits from "../PlayerTraits/playerTrait.model";
-import { Table, Column, Model, HasMany, AllowNull, Unique, Default} from 'sequelize-typescript';
+import { Table, Column, Model, HasMany, AllowNull, Unique, Default, DataType, BelongsToMany} from 'sequelize-typescript';
 
 
 @Table
 class Player extends Model {
-  @Column
-  @AllowNull(false)	
+  @AllowNull(false)
   @Unique(true)
+  @Column
   name: string;
 
-  @Column
   @AllowNull(false)
   @Default(100)
-  hp: Number;
-
   @Column
+  hp: number;
+
   @AllowNull(false)
   @Default(10)
-  attack: Number;
-
   @Column
+  attack: number;
+
   @AllowNull(false)
   @Default(5)
-  stamina: Number;
-
   @Column
+  stamina: number;
+
   @AllowNull(false)
   @Default(1)
-  level: Number;
-
   @Column
+  level: number;
+
   @AllowNull(false)
   @Default(0)
-  mobsKilled: Number;
-
+  @Column
+  mobsKilled: number;
 
   @BelongsToMany(() => Skill, () => Player_Skills)
-  skills: [];
+  skills: Skill[]; 
+
+  @BelongsToMany(() => Trait, () => Player_Skills)
+  traits: Trait[]; 
 }
 
-const Player = sequelize.define("players", {
+
+/* const Player = sequelize.define("players", {
   name: {
     type: DataTypes.STRING(100),
     allowNull: false,
@@ -75,9 +78,9 @@ const Player = sequelize.define("players", {
     defaultValue: 0,
   },
   
-});
+}); */
 
-Player.belongsToMany(Skill, {
+/* Player.belongsToMany(Skill, {
   through: Player_Skills,
 });
 
@@ -91,5 +94,5 @@ Player.belongsToMany(Trait, {
 
 Trait.belongsToMany(Player, {
   through: Player_Traits,
-});
+}); */
 export default Player;
