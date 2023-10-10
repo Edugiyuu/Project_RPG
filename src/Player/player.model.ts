@@ -1,13 +1,13 @@
-import { sequelize, DataTypes } from "../database/db";
 import Skill from "../Skill/skill.model";
 import Player_Skills from "../PlayerSkills/playerSkill.model";
 import Trait from "../Trait/trait.model";
 import Player_Traits from "../PlayerTraits/playerTrait.model";
 import { Table, Column, Model, HasMany, AllowNull, Unique, Default, DataType, BelongsToMany} from 'sequelize-typescript';
+import { sequelize } from "../database/db";
 
 
-@Table
-class Player extends Model {
+@Table //({ tableName: 'Player' })
+class Players extends Model {
   @AllowNull(false)
   @Unique(true)
   @Column
@@ -38,12 +38,14 @@ class Player extends Model {
   @Column
   mobsKilled: number;
 
-  @BelongsToMany(() => Skill, () => Player_Skills)
+   @BelongsToMany(() => Skill, () => Player_Skills)
   skills: Skill[]; 
 
-  @BelongsToMany(() => Trait, () => Player_Skills)
-  traits: Trait[]; 
+   @BelongsToMany(() => Trait, () => Player_Traits)
+  traits: Trait[];   
 }
+
+
 
 
 /* const Player = sequelize.define("players", {
@@ -95,4 +97,4 @@ Player.belongsToMany(Trait, {
 Trait.belongsToMany(Player, {
   through: Player_Traits,
 }); */
-export default Player;
+export default Players;

@@ -1,12 +1,18 @@
 
-import { sequelize, DataTypes } from "../database/db";
 
+import { Table, Column, Model, HasMany, AllowNull, Unique, Default, DataType, BelongsToMany,ForeignKey} from 'sequelize-typescript';
+import Players from "../Player/player.model";
+import Trait from "../Trait/trait.model";
 
+@Table
+class Player_Traits extends Model {
+  @ForeignKey(() => Players)
+  @Column
+  playerId: number;
 
-const Player_Traits = sequelize.define(
-  "player_traits",
-  {},
-  { timestamps: false }
-);
+  @ForeignKey(() => Trait)
+  @Column
+  traitId: number;
+}
 
 export default Player_Traits;

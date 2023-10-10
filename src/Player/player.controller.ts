@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Player from "./player.model";
+import Players from "./player.model";
 import {
   CreatePlayerInput,
   FilterPlayerQueryInput,
@@ -10,6 +10,21 @@ import Skill from "../Skill/skill.model";
 import { where } from "sequelize";
 import Trait from "../Trait/trait.model";
 
+import { Sequelize } from 'sequelize-typescript';
+import Player_Skills from "../PlayerSkills/playerSkill.model";
+import Player_Traits from "../PlayerTraits/playerTrait.model";
+
+const sequelize = new Sequelize({
+  database: 'node_sequelize',
+  dialect: 'postgres',
+  username: 'admin',
+  password: 'password123',
+  host: 'localhost',
+  port: 6500,
+  storage: ':memory:',
+  models: [Players,Player_Skills,Skill,Trait,Player_Traits] // or [Player, Team],
+});    
+
 export const createPlayerController = async (
   req: Request<{}, {}, CreatePlayerInput>,
   res: Response
@@ -17,7 +32,7 @@ export const createPlayerController = async (
   try {
 
     const { name,} = req.body;
-    const fulano = await Player.create({
+    const fulano = await Players.create({
       name,
     });
 
@@ -74,7 +89,7 @@ export const updatePlayerController = async (
   try {
 
 
-    const updatedPlayer = await Player.findByPk(req.params.playerId);
+    const updatedPlayer = await Players.findByPk(req.params.playerId);
 
     if (req.body.mobsKilled) {
       updatedPlayer.level += 1;
@@ -87,7 +102,7 @@ export const updatePlayerController = async (
     
 
 
-    const result = await Player.update(
+    const result = await Players.update(
       { ...req.body, updatedAt: Date.now() },
       {
         where: {
@@ -103,7 +118,7 @@ export const updatePlayerController = async (
       });
     }
 
-    const note = await Player.findByPk(req.params.playerId);
+    const note = await Players.findByPk(req.params.playerId);
 
     res.status(200).json({
       status: "success",
@@ -124,7 +139,7 @@ export const findPlayerController = async (
   res: Response
 ) => {
   try {
-    const player = await Player.findByPk(req.params.playerId, {
+    const player = await Players.findByPk(req.params.playerId, {
       include: [
         { model: Skill },
         { model: Trait },
@@ -164,7 +179,7 @@ export const findAllPlayersController = async (
     const limit = req.query.limit || 10;
     const skip = (page - 1) * limit;
 
-    const players = await Player.findAll({
+    const players = await Players.findAll({
       limit,
       offset: skip,
       include: [
@@ -192,7 +207,7 @@ export const deletePlayerController = async (
   res: Response
 ) => {
   try {
-    const result = await Player.destroy({
+    const result = await Players.destroy({
       where: { id: req.params.playerId },
       force: true,
     });
