@@ -4,7 +4,7 @@ import Player_Skills from './playerSkill.model';
 
 
 @Table
-class Skill extends Model {
+ class Skill extends Model {
   @Column({
     type: DataType.STRING(255)
   })
@@ -35,12 +35,20 @@ class Skill extends Model {
   })
   mobSkill?: boolean;
 
-  @BelongsToMany(() => Player, () => Player_Skills)
-  player?: Array<Player & {Player_Skills: Player_Skills}>;
 
+  
   /* @BelongsToMany(() => Player, () => Player_Skills)
-  players?: Player[]; */
+  player?: Array<Player & {Player_Skills: Player_Skills}>; */
+
+   @BelongsToMany(() => Player, () => Player_Skills)
+  players?: Player[]; 
 }
 
+
+/* Skill.belongsToMany(Player, {
+  through: Player_Skills,
+  foreignKey: 'playerId',
+
+}); */
 
 export default Skill;

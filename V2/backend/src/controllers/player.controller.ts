@@ -20,12 +20,12 @@ export default class PlayerController {
     }
   try {
 
-    const { name,} = req.body;
+    const {name} = req.body;
     const fulano = await Player.create({
-      name,
+      name
     });
 
-    const skillIds = [1,2]
+    const skillIds = [2]
 
     const habilidades = [];
 
@@ -33,21 +33,19 @@ export default class PlayerController {
       const skillId = skillIds[i];
 
       const habilidade = await Skill.findByPk(skillId);
-      fulano.$set
-      if (habilidade) {
-        habilidades.push(habilidade);
-      }
+       if (habilidade) {
+        await fulano.$add("Skill",habilidade);
+      } 
+      
     }
-   // await fulano.addSkills(habilidades);
-
     
-    const comumTraits = await Trait.findAll({ where: { type: "Comum" } });
+    /* const comumTraits = await Trait.findAll({ where: { type: "Comum" } });
     const traits = [];
 
     const randomId = Math.floor(Math.random() * comumTraits.length);
     const randomTrait = comumTraits[randomId];
     traits.push(randomTrait);
-
+ */
    // await fulano.addTraits(traits);
 
     res.status(201).json({
@@ -133,7 +131,7 @@ export const findPlayerController = async (
     const player = await Player.findByPk(req.params.playerId, {
       include: [
         { model: Skill },
-        { model: Trait },
+       // { model: Trait },
       ]
     });
     
@@ -174,7 +172,7 @@ export const findAllPlayersController = async (
       offset: skip,
       include: [
         { model: Skill },
-        { model: Trait },
+       // { model: Trait },
       ]
     });
     console.log("🚀 ~ file: player.controller.ts:130 ~ players:", players);

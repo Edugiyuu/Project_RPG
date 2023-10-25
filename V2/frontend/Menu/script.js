@@ -8,7 +8,7 @@ function LoadingAnimation() {
     loading.style.display = 'flex'
 
     setTimeout(function() {
-        window.location.href = '../Character/index.html';
+        window.location.href = '../Character-building/hat.html';
     }, 3000); // 2000 milissegundos (2 segundos)
 }
 
