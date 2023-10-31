@@ -10,6 +10,7 @@ export const config = {
     acquire: 30000,
     idle: 10000,
   },
+  
 };
 
 export const dialect = "postgres";

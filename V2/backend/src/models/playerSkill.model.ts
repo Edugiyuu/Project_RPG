@@ -22,20 +22,4 @@ export class Player_Skills extends Model<Player_Skills> {
   skill?: Skill;
 }
 
-
-/* @Table
-class Player_Skills extends Model {
-  @ForeignKey(() => Players)
-  @Column({
-    type: DataType.INTEGER
-  })
-  playerId?: number;
-
-  @ForeignKey(() => Skill)
-  @Column({
-    type: DataType.INTEGER
-  })
-  skillId?: number;
-} */
-
 export default Player_Skills;

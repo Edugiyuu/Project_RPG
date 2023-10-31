@@ -39,14 +39,14 @@ export default class PlayerController {
       
     }
     
-    /* const comumTraits = await Trait.findAll({ where: { type: "Comum" } });
+      const comumTraits = await Trait.findAll({ where: { type: "Comum" } });
     const traits = [];
 
     const randomId = Math.floor(Math.random() * comumTraits.length);
     const randomTrait = comumTraits[randomId];
     traits.push(randomTrait);
- */
-   // await fulano.addTraits(traits);
+ 
+    await fulano.$add("Trait",randomTrait); 
 
     res.status(201).json({
       status: "success",
@@ -172,7 +172,7 @@ export const findAllPlayersController = async (
       offset: skip,
       include: [
         { model: Skill },
-       // { model: Trait },
+        { model: Trait },
       ]
     });
     console.log("🚀 ~ file: player.controller.ts:130 ~ players:", players);

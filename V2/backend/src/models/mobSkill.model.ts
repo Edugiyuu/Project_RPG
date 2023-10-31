@@ -1,22 +1,25 @@
-import MobModel from "../models/mob.model";
+import Mob from "../models/mob.model";
 import Player from "../models/player.model";
 import Skill from "../models/skill.model";
 
-import { Table, Column, Model, HasMany, AllowNull, Unique, Default, DataType, BelongsToMany,ForeignKey} from 'sequelize-typescript';
+import { Table, Column, Model, HasMany, AllowNull, Unique, Default, DataType, BelongsToMany,ForeignKey, BelongsTo} from 'sequelize-typescript';
 
-@Table
-class Mob_Skills extends Model {
-  @ForeignKey(() => MobModel)
-  @Column({
-    type: DataType.INTEGER
-  })
+
+ @Table
+export class Mob_Skills extends Model<Mob_Skills> {
+  @ForeignKey(() => Mob)
+  @Column
   mobId?: number;
 
   @ForeignKey(() => Skill)
-  @Column({
-    type: DataType.INTEGER
-  })
+  @Column
   skillId?: number;
-}
+
+  @BelongsTo(() => Mob)
+  mobs?: Mob;
+
+  @BelongsTo(() => Skill)
+  skill?: Skill;
+} 
 
 export default Mob_Skills;

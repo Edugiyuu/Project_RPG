@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import MobModel from "../models/mob.model";
+import Mob from "../models/mob.model";
 import {
   CreateMobInput,
   FilterMobQueryInput,
@@ -17,14 +17,16 @@ export default class MobController {
         return;
       }
   try {
-    const { name, hp, attack, skillIds} = req.body;
+    const { name, hp, attack,} = req.body;
 
-    const mob = await MobModel.create({
+    const mob = await Mob.create({
       name,
       hp,
       attack,
-      skillIds
+     
     });
+
+   /*  const skillIds = [2]
 
     const habilidades = [];
 
@@ -32,13 +34,12 @@ export default class MobController {
       const skillId = skillIds[i];
 
       const habilidade = await Skill.findByPk(skillId);
-
-      if (habilidade) {
-        habilidades.push(habilidade);
-      }
+       if (habilidade) {
+        await mob.$add("Skill",habilidade);
+      } 
+      
     }
-    //await mob.addSkills(habilidades);
-
+ */
     res.status(201).json({
       status: "success",
       data: {
@@ -65,7 +66,7 @@ export const updateMobController = async (
   res: Response
 ) => {
   try {
-    const result = await MobModel.update(
+    const result = await Mob.update(
       { ...req.body, updatedAt: Date.now() },
       {
         where: {
@@ -81,7 +82,7 @@ export const updateMobController = async (
       });
     }
 
-    const mob = await MobModel.findByPk(req.params.mobId);
+    const mob = await Mob.findByPk(req.params.mobId);
 
     res.status(200).json({
       status: "success",
@@ -102,7 +103,7 @@ export const findMobController = async (
   res: Response
 ) => {
   try {
-    const mob = await MobModel.findByPk(req.params.mobId, {include: Skill});
+    const mob = await Mob.findByPk(req.params.mobId, {include: Skill});
 
     if (!mob) {
       return res.status(404).json({
@@ -134,7 +135,7 @@ export const findAllMobsController = async (
     const limit = req.query.limit || 10;
     const skip = (page - 1) * limit;
 
-    const mobs = await MobModel.findAll({ limit, offset: skip, include: Skill,});
+    const mobs = await Mob.findAll({ limit, offset: skip, include: Skill,});
 
     res.status(200).json({
       status: "success",
@@ -154,7 +155,7 @@ export const deleteMobController = async (
   res: Response
 ) => {
   try {
-    const result = await MobModel.destroy({
+    const result = await Mob.destroy({
       where: { id: req.params.mobId },
       force: true,
     });

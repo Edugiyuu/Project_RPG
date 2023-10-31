@@ -1,10 +1,10 @@
 import { Sequelize } from "sequelize-typescript";
-import { config, dialect } from "../config/db.config";
+import { config, dialect } from "../../config/db.config";
 import Tutorial from "../models/tutorial.model";
 import Player from "../models/player.model";
 import Trait from "../models/trait.model";
 import Skill from "../models/skill.model";
-import MobModel from "../models/mob.model";
+import Mob from "../models/mob.model";
 import Player_Skills from "../models/playerSkill.model";
 import Player_Traits from "../models/playerTrait.model";
 import Mob_Skills from "../models/mobSkill.model";
@@ -30,7 +30,7 @@ class Database {
         acquire: config.pool.acquire,
         idle: config.pool.idle,
       },
-      models: [Tutorial,Player,Trait,Skill,MobModel,Player_Skills,Player_Traits,Mob_Skills],
+      models: [Tutorial,Player,Trait,Skill,Mob,Player_Skills,Player_Traits,Mob_Skills],
     });
 
     await this.sequelize

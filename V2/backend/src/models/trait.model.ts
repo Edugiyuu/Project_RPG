@@ -45,7 +45,7 @@ class Trait extends Model {
       revive?: boolean;
 
       @BelongsToMany(() => Player, () => Player_Traits)
-      player?: Array<Player & {Player_Traits: Player_Traits}>;
+      players?: Player[]; 
 }
 
 export default Trait;
