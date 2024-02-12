@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+    
+    <h1 id="titulo">Escolha seu Personagem</h1>
+    <p>Personagem</p>
+
+    <audio src="./audios/undertale-select-sound.mp3" id="AudioSelect"></audio>
+
+    <div id="seletores">
+        <span id="X"> X </span>
+        <span id="frente"> > </span>
+    </div>
+    
+    <div id="personagemCompleto">
+        <img src="./personagens/pixil-frame-0 (37).png" id="personagem"></img>
+    </div>
+    <span id="next">Next</span>
+
+    
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/square.js"></script>
+
+    <l-square id="loading"
+      size="75"
+      stroke="5"
+      stroke-length="0.25"
+      bg-opacity="0.1"
+      speed="1"
+      color="black" 
+    ></l-square>
+
+    <script src="script.js"></script>
+
+</body>
+</html>

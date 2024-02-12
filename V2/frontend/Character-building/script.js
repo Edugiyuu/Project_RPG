@@ -44,9 +44,6 @@ X.addEventListener('click',NoHat)
 const next = document.querySelector('#next')
 
 function Next() {
-
-    //salvar a imagem do chapeu que a pessoa escolheu
-
    
 
     setTimeout(function() {
